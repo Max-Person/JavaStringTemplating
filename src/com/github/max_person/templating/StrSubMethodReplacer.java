@@ -37,7 +37,7 @@ public class StrSubMethodReplacer{
                 m.getGenericReturnType().equals(String.class);
     }
 
-    boolean isAppropriate(StrSubMethodCall call){
+    boolean isAppropriate(StrSubMethodCall call, TypeParser argParser){
         if(!call.functionName().equals(this.name)){
             return false;
         }
@@ -48,12 +48,11 @@ public class StrSubMethodReplacer{
             return false;
         }
 
-        TypeParser parser = TypeParser.newBuilder().build();
         Type[] paramTypes = method.getParameterTypes();
         for(int i = 0; i < method.getParameterCount(); i++){
             String arg = m.group("arg" + i);
             try{
-                parser.parseType(arg, paramTypes[i]);
+                argParser.parseType(arg, paramTypes[i]);
             } catch (Exception e) {
                 return false;
             }
@@ -61,18 +60,17 @@ public class StrSubMethodReplacer{
 
         return true;
     }
-
-    public String execute(StrSubMethodCall call){
-        if(isAppropriate(call)){
+    
+    public String execute(StrSubMethodCall call, TypeParser argParser){
+        if(isAppropriate(call, argParser)){
             String args = call.argsSection();
             Matcher m = Pattern.compile(argsRegex()).matcher(args);
             m.matches();
-            TypeParser parser = TypeParser.newBuilder().build();
             Object[] params = new Object[method.getParameterCount()];
             Type[] paramTypes = method.getParameterTypes();
             for(int i = 0; i < method.getParameterCount(); i++){
                 String arg = m.group("arg" + i);
-                params[i] = parser.parseType(arg, paramTypes[i]);
+                params[i] = argParser.parseType(arg, paramTypes[i]);
             }
 
             method.setAccessible(true);

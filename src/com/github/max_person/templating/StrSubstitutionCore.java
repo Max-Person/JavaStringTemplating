@@ -1,5 +1,7 @@
 package com.github.max_person.templating;
 
+import com.github.drapostolos.typeparser.TypeParser;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,12 +11,18 @@ import java.util.regex.Pattern;
 
 public class StrSubstitutionCore {
     private final Object wrapper;
+    private final TypeParser parser;
 
     public StrSubstitutionCore(Object wrapper) {
+        this(wrapper, TypeParser.newBuilder().build());
+    }
+    
+    public StrSubstitutionCore(Object wrapper, TypeParser parser){
         if(wrapper instanceof StrSubstitutionCore){
             throw new IllegalArgumentException("StrSubstitutionCore is not to be wrapped in another StrSubstitutionCore");
         }
         this.wrapper = wrapper;
+        this.parser = parser;
     }
 
     private Map<String, Object> strSubFields(){
@@ -113,7 +121,7 @@ public class StrSubstitutionCore {
         }
 
         String str = parametrized;
-        System.out.println(str);
+        //System.out.println(str);
 
         StrSubMethodCall foundCall = StrSubMethodCall.findFunctionCall(str);
         Map<String, StrSubMethodReplacer> subMethods = knownSubstitutionMethods();
@@ -121,8 +129,8 @@ public class StrSubstitutionCore {
             boolean invalid = true;
             if(subMethods.containsKey(foundCall.functionName())){
                 StrSubMethodReplacer method = subMethods.get(foundCall.functionName());
-                if(method.isAppropriate(foundCall)){
-                    str = foundCall.replace(method.execute(foundCall));
+                if(method.isAppropriate(foundCall, parser)){
+                    str = foundCall.replace(method.execute(foundCall, parser));
                 }
                 else {
                     str = foundCall.replace("[Invalid method call: "+ foundCall.functionName() + "(" + foundCall.argsSection() + ")]");

@@ -50,7 +50,7 @@ import java.util.Stack;
 
   
   private void _print(String str){
-    System.out.println(str);
+    //System.out.println(str);
   }
 
 
@@ -155,6 +155,11 @@ EXPONENT = [eE][+-]?[0-9]+
 [\t \n\r]+      {_print("WHITESPACE");}
 
 
+null   {
+    _print("NULL LITERAL: " + yytext());
+    yylval = null;
+    return NULL;
+}
 
 (false|true)   {
     _print("BOOLEAN LITERAL: " + yytext());

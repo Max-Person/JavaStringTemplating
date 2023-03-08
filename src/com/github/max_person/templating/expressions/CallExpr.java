@@ -1,7 +1,7 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
-import com.github.max_person.grammar.InterpretationData;
-import com.github.max_person.grammar.TemplatingSafeMethod;
+import com.github.max_person.templating.InterpretationData;
+import com.github.max_person.templating.TemplatingSafeMethod;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

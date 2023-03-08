@@ -1,6 +1,6 @@
-package com.github.max_person.grammar;
+package com.github.max_person.templating;
 
-import com.github.max_person.grammar.expressions.TemplateExpr;
+import com.github.max_person.templating.expressions.TemplateExpr;
 
 import java.io.IOException;
 import java.io.StringReader;

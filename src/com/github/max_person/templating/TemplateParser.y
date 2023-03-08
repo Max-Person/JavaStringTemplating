@@ -1,9 +1,9 @@
-%define api.package {com.github.max_person.grammar }
+%define api.package {com.github.max_person.templating }
 %define api.parser.class {TemplateParser}
 %define parse.error verbose
 
 %code imports{
-import com.github.max_person.grammar.expressions.*;
+import com.github.max_person.templating.expressions.*;
 import java.util.List;
 }
 

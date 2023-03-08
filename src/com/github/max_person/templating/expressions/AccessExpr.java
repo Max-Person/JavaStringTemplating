@@ -1,7 +1,7 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
-import com.github.max_person.grammar.InterpretationData;
-import com.github.max_person.grammar.TemplatingSafeField;
+import com.github.max_person.templating.InterpretationData;
+import com.github.max_person.templating.TemplatingSafeField;
 
 import java.lang.annotation.AnnotationFormatError;
 import java.lang.reflect.Field;

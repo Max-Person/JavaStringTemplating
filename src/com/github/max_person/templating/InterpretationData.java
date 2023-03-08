@@ -1,4 +1,4 @@
-package com.github.max_person.grammar;
+package com.github.max_person.templating;
 
 import com.github.drapostolos.typeparser.TypeParser;
 

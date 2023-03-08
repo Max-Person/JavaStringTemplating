@@ -1,6 +1,6 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
-import com.github.max_person.grammar.InterpretationData;
+import com.github.max_person.templating.InterpretationData;
 
 abstract public class NumericExpr extends BinaryOpExpr {
     public NumericExpr(TemplateExpr op1, TemplateExpr op2) {

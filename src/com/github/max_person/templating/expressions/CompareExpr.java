@@ -1,4 +1,4 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
 public class CompareExpr extends NumericExpr{
     public enum CompareOp{

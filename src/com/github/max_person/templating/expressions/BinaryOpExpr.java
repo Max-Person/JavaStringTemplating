@@ -1,4 +1,4 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
 abstract public class BinaryOpExpr extends TemplateExpr{
     protected TemplateExpr op1;

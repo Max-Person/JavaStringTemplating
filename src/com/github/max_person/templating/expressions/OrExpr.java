@@ -1,6 +1,6 @@
-package com.github.max_person.grammar.expressions;
+package com.github.max_person.templating.expressions;
 
-import com.github.max_person.grammar.InterpretationData;
+import com.github.max_person.templating.InterpretationData;
 
 public class OrExpr  extends BinaryOpExpr {
     public OrExpr(TemplateExpr op1, TemplateExpr op2) {

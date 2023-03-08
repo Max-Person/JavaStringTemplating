@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 public class NegExpr extends TemplateExpr{
     private TemplateExpr op;
@@ -10,7 +10,7 @@ public class NegExpr extends TemplateExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         Object val = op.evaluate(data);
         if(!(val instanceof Double || val instanceof Integer ))
             throw new TemplateEvaluationException(); //TODO

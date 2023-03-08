@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 import com.github.max_person.grammar.TemplatingSafeMethod;
 
 import java.lang.reflect.InvocationTargetException;
@@ -43,7 +43,7 @@ public class CallExpr extends TemplateExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         Method m = null;
         Object owner;
         if(op == null)
@@ -66,7 +66,7 @@ public class CallExpr extends TemplateExpr{
             Object arg = arguments.get(i).evaluate(data);
             if(!paramTypes[i].equals(arg.getClass())){
                 if(arg instanceof String)
-                    arg = data.parser.parseType((String) arg, paramTypes[i]);
+                    arg = data.getParser().parseType((String) arg, paramTypes[i]);
                 else
                     throw new TemplateEvaluationException(); //TODO несовпадение типов
             }

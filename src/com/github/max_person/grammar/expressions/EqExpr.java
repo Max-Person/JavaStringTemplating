@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ public class EqExpr extends BinaryOpExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         Object val1 = op1.evaluate(data);
         Object val2 = op2.evaluate(data);
         return Objects.equals(val1, val2) ||

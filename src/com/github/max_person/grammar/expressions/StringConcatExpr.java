@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class StringConcatExpr extends TemplateExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         StringBuilder b = new StringBuilder();
         for(TemplateExpr e: concat){
             b.append(e.evaluate(data).toString());

@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 import com.github.max_person.grammar.TemplatingSafeField;
 
 import java.lang.reflect.Field;
@@ -95,7 +95,7 @@ public class AccessExpr extends TemplateExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         FieldLike fieldLike = null;
         if(op == null){
             Object value = data.getVar(identifier);

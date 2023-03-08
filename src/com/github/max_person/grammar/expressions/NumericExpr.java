@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 abstract public class NumericExpr extends BinaryOpExpr {
     public NumericExpr(TemplateExpr op1, TemplateExpr op2) {
@@ -8,7 +8,7 @@ abstract public class NumericExpr extends BinaryOpExpr {
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         Object val1 = op1.evaluate(data);
         Object val2 = op2.evaluate(data);
         if(!(val1 instanceof Double || val1 instanceof Integer ) ||

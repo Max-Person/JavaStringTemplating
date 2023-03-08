@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 public class ConditionalExpr extends TemplateExpr{
     protected TemplateExpr condition;
@@ -14,7 +14,7 @@ public class ConditionalExpr extends TemplateExpr{
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         if(isTruthy(condition.evaluate(data)))
             return op1.evaluate(data);
         else

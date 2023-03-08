@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 public class OrExpr  extends BinaryOpExpr {
     public OrExpr(TemplateExpr op1, TemplateExpr op2) {
@@ -8,7 +8,7 @@ public class OrExpr  extends BinaryOpExpr {
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         Object val1 = op1.evaluate(data);
         if (isTruthy(val1))
             return val1;

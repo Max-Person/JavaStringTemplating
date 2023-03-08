@@ -1,10 +1,10 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 public abstract class TemplateExpr {
     
-    abstract public Object evaluate(TemplateInterpreter data);
+    abstract public Object evaluate(InterpretationData data);
     
     public static boolean isTruthy(Object value){
         return !isFalsy(value);

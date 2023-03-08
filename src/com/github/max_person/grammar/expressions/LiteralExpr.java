@@ -1,6 +1,6 @@
 package com.github.max_person.grammar.expressions;
 
-import com.github.max_person.grammar.TemplateInterpreter;
+import com.github.max_person.grammar.InterpretationData;
 
 public class LiteralExpr<ValueType> extends TemplateExpr {
     public final ValueType value;
@@ -9,7 +9,7 @@ public class LiteralExpr<ValueType> extends TemplateExpr {
     }
     
     @Override
-    public Object evaluate(TemplateInterpreter data) {
+    public Object evaluate(InterpretationData data) {
         return value;
     }
 }

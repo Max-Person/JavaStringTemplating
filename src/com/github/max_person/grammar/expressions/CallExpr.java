@@ -23,16 +23,16 @@ public class CallExpr extends TemplateExpr{
     
     private Map<String, Method> getAvailableMethods(Object obj, boolean safe){
         Map<String, Method> methods = new HashMap<>();
-        for(Method m: obj.getClass().getMethods()){
+        Class<?> c = obj.getClass();
+        for(Method m: c.getMethods()){
             TemplatingSafeMethod a = m.getAnnotation(TemplatingSafeMethod.class);
             if(safe && a == null)
                 continue;
             
             String name = a != null && !a.value().isEmpty() ? a.value() : m.getName();
             
-            if(methods.containsKey(name)){
-                throw new TemplateEvaluationException(); //TODO конфликт имен методов
-            }
+            if(methods.containsKey(name))
+                throw new IllegalArgumentException(String.format("Class %s has several methods with templating alias '%s' (method overloading is currently unsupported)", c.getName(), name));
     
             m.setAccessible(true);
             
@@ -55,10 +55,10 @@ public class CallExpr extends TemplateExpr{
             m = getAvailableMethods(owner, data.getDefaultSafety()).get(identifier);
     
         if(m == null)
-            throw new TemplateEvaluationException(); //TODO метод не найден
+            throw new IllegalArgumentException(String.format("Call operation in a template could not find a method '%s'", identifier)); //TODO позиция
         
         if(m.getParameterCount() != arguments.size())
-            throw new TemplateEvaluationException(); //TODO несовпадение количества параметров
+            throw new IllegalArgumentException(String.format("Call operation in a template expected %d arguments for method '%s()', %d found", m.getParameterCount(), identifier, arguments.size())); //TODO позиция
     
         Object[] args = new Object[m.getParameterCount()];
         Type[] paramTypes = m.getParameterTypes();
@@ -66,9 +66,9 @@ public class CallExpr extends TemplateExpr{
             Object arg = arguments.get(i).evaluate(data);
             if(!paramTypes[i].equals(arg.getClass())){
                 if(arg instanceof String)
-                    arg = data.getParser().parseType((String) arg, paramTypes[i]);
+                    arg = data.getParser().parseType((String) arg, paramTypes[i]); //TODO ошибки парсинга
                 else
-                    throw new TemplateEvaluationException(); //TODO несовпадение типов
+                    throw new IllegalArgumentException(String.format("Type mismatch in a call operation in a template" )); //TODO позиция и подробнее
             }
             args[i] = arg;
         }

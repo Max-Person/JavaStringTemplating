@@ -3,6 +3,7 @@ package com.github.max_person.grammar.expressions;
 import com.github.max_person.grammar.InterpretationData;
 import com.github.max_person.grammar.TemplatingSafeField;
 
+import java.lang.annotation.AnnotationFormatError;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -62,7 +63,7 @@ public class AccessExpr extends TemplateExpr{
             String name = a != null && !a.value().isEmpty() ? a.value() : f.getName();
             
             if(fields.containsKey(name)){
-                throw new TemplateEvaluationException(); //TODO конфликт имен полей
+                throw new IllegalArgumentException(String.format("Class %s has several fields with templating alias '%s'", c.getName(), name));
             }
             
             f.setAccessible(true);
@@ -76,7 +77,7 @@ public class AccessExpr extends TemplateExpr{
             
             if(m.getParameterCount() != 0){
                 if(a != null)
-                    throw new TemplateEvaluationException(); //TODO неподходящий для того чтобы быть помеченным как поле метод
+                    throw new AnnotationFormatError(String.format("Method %s cannot be marked as %s it has non-zero parameter count", m.getName(), TemplatingSafeField.class.getSimpleName()));
                 else
                     continue;
             }
@@ -84,7 +85,7 @@ public class AccessExpr extends TemplateExpr{
             String name = a != null && !a.value().isEmpty() ? a.value() : m.getName();
         
             if(fields.containsKey(name)){
-                throw new TemplateEvaluationException(); //TODO конфликт имен полей
+                throw new IllegalArgumentException(String.format("Class %s has several fields with templating alias '%s'", c.getName(), name));
             }
     
             m.setAccessible(true);
@@ -113,7 +114,7 @@ public class AccessExpr extends TemplateExpr{
         }
     
         if(fieldLike == null)
-            throw new TemplateEvaluationException(); //TODO значение не найдено
+            throw new IllegalArgumentException(String.format("Access operation in a template could not find a field/variable named %s", identifier)); //TODO позиция
         
         try {
             return fieldLike.get();

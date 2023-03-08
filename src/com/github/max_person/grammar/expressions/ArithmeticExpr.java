@@ -30,7 +30,7 @@ public class ArithmeticExpr extends NumericExpr{
             case div -> {
                 return val1 / val2;
             }
-            default -> throw new TemplateEvaluationException(); //TODO
+            default -> throw new IllegalArgumentException();
         }
     }
     
@@ -49,7 +49,7 @@ public class ArithmeticExpr extends NumericExpr{
             case div -> {
                 return val1.doubleValue()  / val2;
             }
-            default -> throw new TemplateEvaluationException(); //TODO
+            default -> throw new IllegalArgumentException();
         }
     }
 }

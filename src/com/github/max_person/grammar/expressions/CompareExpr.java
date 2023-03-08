@@ -29,7 +29,7 @@ public class CompareExpr extends NumericExpr{
             case less_eq -> {
                 return val1 <= val2;
             }
-            default -> throw new TemplateEvaluationException(); //TODO
+            default -> throw new IllegalArgumentException();
         }
     }
     
@@ -48,7 +48,7 @@ public class CompareExpr extends NumericExpr{
             case less_eq -> {
                 return val1 <= val2;
             }
-            default -> throw new TemplateEvaluationException(); //TODO
+            default -> throw new IllegalArgumentException();
         }
     }
 }

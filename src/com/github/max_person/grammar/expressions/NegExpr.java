@@ -13,7 +13,7 @@ public class NegExpr extends TemplateExpr{
     public Object evaluate(InterpretationData data) {
         Object val = op.evaluate(data);
         if(!(val instanceof Double || val instanceof Integer ))
-            throw new TemplateEvaluationException(); //TODO
+            throw new IllegalArgumentException(String.format("Type mismatch in a numeric operation in a template: expected a number (Double/Integer), '%s' found", val.getClass().getSimpleName())); //TODO позиция
         
         if(val instanceof Integer)
             return -(Integer) val;

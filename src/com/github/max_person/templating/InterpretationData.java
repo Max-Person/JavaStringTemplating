@@ -11,6 +11,8 @@ public class InterpretationData {
     public InterpretationData(InterpretationData other){
         this.global = other.global;
         this.variables.putAll(other.variables);
+        this.defaultSafety = other.defaultSafety;
+        this.parser = other.parser;
     }
     
     

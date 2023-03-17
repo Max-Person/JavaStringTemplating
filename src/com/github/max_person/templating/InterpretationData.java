@@ -17,17 +17,17 @@ public class InterpretationData {
     
     
     private Object global = null;
-    public InterpretationData setGlobalObj(Object global) {
+    public Object getGlobalObj() {
+        return global;
+    }
+    public InterpretationData withGlobalObj(Object global) {
         this.global = global;
         return this;
     }
     public InterpretationData usingGlobalObj(Object global) {
         InterpretationData copy = new InterpretationData(this);
-        copy.setGlobalObj(global);
+        copy.withGlobalObj(global);
         return copy;
-    }
-    public Object getGlobalObj() {
-        return global;
     }
     
     
@@ -35,18 +35,18 @@ public class InterpretationData {
     public Object getVar(String name) {
         return variables.get(name);
     }
-    public InterpretationData setVar(String name, Object value) {
+    public InterpretationData withVar(String name, Object value) {
         variables.put(name, value);
-        return this;
-    }
-    public InterpretationData removeVar(String name) {
-        variables.remove(name);
         return this;
     }
     public InterpretationData usingVar(String name, Object value) {
         InterpretationData copy = new InterpretationData(this);
-        copy.setVar(name, value);
+        copy.withVar(name, value);
         return copy;
+    }
+    public InterpretationData removeVar(String name) {
+        variables.remove(name);
+        return this;
     }
     
     public void clear() {
@@ -59,8 +59,9 @@ public class InterpretationData {
     public boolean getDefaultSafety() {
         return defaultSafety;
     }
-    public void setDefaultSafety(boolean defaultSafety) {
+    public InterpretationData withDefaultSafety(boolean defaultSafety) {
         this.defaultSafety = defaultSafety;
+        return this;
     }
     
     
@@ -68,8 +69,9 @@ public class InterpretationData {
     public TypeParser getParser() {
         return parser;
     }
-    public void setParser(TypeParser parser) {
+    public InterpretationData withParser(TypeParser parser) {
         this.parser = parser;
+        return this;
     }
     
     public String interpret(Template template){

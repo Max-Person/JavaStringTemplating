@@ -54,8 +54,8 @@ import java.util.List;
 
 %%
 
-string: string INTERPOLATION_START expr INTERPOLATION_END STRING_LITERAL      {$1.addInterpolation($3, new LiteralExpr<String>($5)); $$ = $1; rootExpr = $1;}
-      | STRING_LITERAL                                                        {$$ = new StringConcatExpr(new LiteralExpr<String>($1));}
+string: string INTERPOLATION_START expr INTERPOLATION_END STRING_LITERAL      {$1.addInterpolation($3, new LiteralExpr<String>($5)); $$ = $1; rootExpr = (StringConcatExpr)$$;}
+      | STRING_LITERAL                                                        {$$ = new StringConcatExpr(new LiteralExpr<String>($1)); rootExpr = (StringConcatExpr)$$;}
 ;
 
 primary: NULL           {$$ = new LiteralExpr<Object>(null);}

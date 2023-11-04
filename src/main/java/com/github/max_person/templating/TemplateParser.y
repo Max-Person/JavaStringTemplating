@@ -1,3 +1,5 @@
+%language "Java"
+
 %define api.package {com.github.max_person.templating }
 %define api.parser.class {TemplateParser}
 %define parse.error verbose

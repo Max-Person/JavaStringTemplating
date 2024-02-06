@@ -18,5 +18,68 @@
             <artifactId>type-parser</artifactId>
             <version>0.8.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.1</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-maven-plugin</artifactId>
+                <version>4.13.1</version>
+                <configuration>
+                    <outputDirectory>gen/</outputDirectory>
+                    <listener>true</listener>
+                    <visitor>true</visitor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>antlr-grammars-to-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>antlr4</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>maven-replacer-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>gen/**/*.java</include>
+                    </includes>
+                    <variableTokenValueMap>
+                        public class=class,public interface=interface
+                    </variableTokenValueMap>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -5,6 +5,17 @@ import com.github.drapostolos.typeparser.TypeParser;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The data used in substitution of {@link Template}'s interpolations with values
+ * <p>
+ * InterpretationData is the data component of the substitution process - it defines the <i>what</i> of interpolation,
+ * whereas the {@link Template}s define the <i>how</i>
+ * - this allows for separate reuse of both the templates and the data needed to fill them.
+ * <p>
+ * InterpretationData is passed into the {@link TemplateSection#interpret} method of the interpolation sections,
+ * provided by {@link TemplateInterpolationParser}s, and can then be used from there
+ * during the evaluation of the language constructs into plain text.
+ */
 public class InterpretationData {
     
     public InterpretationData(){}
@@ -75,7 +86,7 @@ public class InterpretationData {
     }
     
     public String interpret(Template template){
-        return template.expr.evaluate(this).toString();
+        return template.interpret(this);
     }
     public String interpret(String str){
         return interpret(new Template(str));

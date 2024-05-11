@@ -41,6 +41,19 @@ public class InterpretationData {
         return copy;
     }
     
+    private Object modifierObject = null;
+    public Object getModifierObject() {
+        return modifierObject != null ? modifierObject : global;
+    }
+    public InterpretationData withModifierObj(Object modifierObject) {
+        this.modifierObject = modifierObject;
+        return this;
+    }
+    public InterpretationData usingModifierObj(Object modifierObject) {
+        return new InterpretationData(this).withModifierObj(modifierObject);
+    }
+    
+    
     
     private final Map<String, Object> variables = new HashMap<>();
     public Object getVar(String name) {

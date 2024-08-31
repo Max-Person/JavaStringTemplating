@@ -1,9 +1,13 @@
 package com.github.max_person.templating.expressions;
 
 import com.github.max_person.templating.TemplateInterpolationParser;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.atn.ATNConfigSet;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import java.util.BitSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,11 +20,20 @@ import java.util.stream.Collectors;
 public class TemplateExprParser implements TemplateInterpolationParser<TemplateExpr> {
     @Override
     public TemplateExpr parse(InterpolationContent interpolationContent) {
-        ExpressionsTemplateSyntaxParser p = new ExpressionsTemplateSyntaxParser(
-            new CommonTokenStream(
-                new ExpressionsTemplateSyntaxLexer(CharStreams.fromString(interpolationContent.content()))
-            )
+        ExpressionsTemplateSyntaxLexer l = new ExpressionsTemplateSyntaxLexer(
+            CharStreams.fromString(interpolationContent.content())
         );
+        l.removeErrorListeners();
+        ExpressionsTemplateSyntaxParser p = new ExpressionsTemplateSyntaxParser(
+            new CommonTokenStream(l)
+        );
+        p.removeErrorListeners();
+        p.addErrorListener(new BaseErrorListener() {
+            @Override
+            public void syntaxError(Recognizer<?, ?> recognizer, Object offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e){
+                throw new ParseCancellationException(msg + " (at pos " + charPositionInLine + ")");
+            }
+        });
         return new ExprBuilder().visit(p.expr());
     }
     

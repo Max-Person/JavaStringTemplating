@@ -30,7 +30,11 @@ public class Template implements TemplateSection{
     }
     
     public Template(String str, TemplateInterpolationParser<?> interpolationParser){
-        TemplatingParser p = new TemplatingParser(new CommonTokenStream(new TemplatingLexer(CharStreams.fromString(str))));
+        TemplatingLexer l = new TemplatingLexer(CharStreams.fromString(str));
+        l.removeErrorListeners();
+        TemplatingParser p = new TemplatingParser(new CommonTokenStream(l));
+        p.removeErrorListeners();
+        
         sections = createSections(p.template(), interpolationParser);
     }
     
